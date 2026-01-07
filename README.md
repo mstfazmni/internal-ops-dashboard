@@ -1,0 +1,2 @@
+# internal-ops-dashboard
+This internal fintech dashboard allows Support, Analysts, and Admins to securely view customer profiles, transaction histories, and account details. Role-based permissions control access to sensitive actions like flagging suspicious activity, adding notes, and freezing accounts. The workflow guides staff from login through customer search, transaction review, and escalation steps,  ensuring fast, informed decisions across teams.
