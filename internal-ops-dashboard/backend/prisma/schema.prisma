@@ -8,37 +8,41 @@ datasource db {
 }
 
 model Customer {
-  id         String      @id @default(uuid())
-  fullName   String
-  email      String      @unique
-  status     CustomerStatus
-  createdAt  DateTime    @default(now())
+  id        String         @id @default(uuid())
+  fullName  String
+  email     String         @unique
+  status    CustomerStatus @default(ACTIVE)
+  createdAt DateTime       @default(now())
 
-  accounts   Account[]
-  notes      Note[]
-  flags      Flag[]
+  accounts  Account[]
+  notes     Note[]
+  flags     Flag[]
 }
 
 model Account {
-  id          String      @id @default(uuid())
-  type        String
-  balance     Decimal
-  status      AccountStatus
-  createdAt   DateTime    @default(now())
+  id         String        @id @default(uuid())
+  type       String
+  balance    Decimal       @db.Decimal(14, 2)
+  status     AccountStatus @default(OPEN)
+  createdAt  DateTime      @default(now())
 
-  customerId  String
-  customer    Customer   @relation(fields: [customerId], references: [id])
+  customerId String
+  customer   Customer     @relation(fields: [customerId], references: [id])
 
   transactions Transaction[]
+
+  @@index([customerId])
 }
 
 model Transaction {
   id        String   @id @default(uuid())
-  amount    Decimal
+  amount    Decimal  @db.Decimal(14, 2)
   createdAt DateTime @default(now())
 
   accountId String
   account   Account  @relation(fields: [accountId], references: [id])
+
+  @@index([accountId])
 }
 
 model Note {
@@ -48,15 +52,20 @@ model Note {
 
   customerId String
   customer   Customer @relation(fields: [customerId], references: [id])
+
+  @@index([customerId])
 }
 
 model Flag {
-  id         String   @id @default(uuid())
+  id         String       @id @default(uuid())
   reason     String
-  createdAt  DateTime @default(now())
+  severity   FlagSeverity @default(LOW)
+  createdAt  DateTime     @default(now())
 
   customerId String
-  customer   Customer @relation(fields: [customerId], references: [id])
+  customer   Customer     @relation(fields: [customerId], references: [id])
+
+  @@index([customerId])
 }
 
 enum CustomerStatus {
@@ -67,4 +76,10 @@ enum CustomerStatus {
 enum AccountStatus {
   OPEN
   CLOSED
+}
+
+enum FlagSeverity {
+  LOW
+  MEDIUM
+  HIGH
 }

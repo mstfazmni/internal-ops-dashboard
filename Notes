@@ -1,0 +1,44 @@
+You define models → Prisma generates SQL → Postgres executes it.
+
+---------------------
+How to write Prisma code?
+
+schema.prisma is NOT SQL
+It is NOT TypeScript
+
+It’s a schema definition language (DSL) that describes:
+
+Tables → model
+
+Columns → fields
+
+Relations → @relation
+
+Constraints → @id, @unique
+
+Indexes → @@index
+
+Prisma converts this into real SQL for Postgres.
+
+-------------------
+
+Rules:
+Rule 1 — Model = Table
+model Customer {
+}
+
+Rule 2 — Field syntax
+fieldName Type Modifiers
+
+
+Example:
+
+email String @unique
+
+
+Prisma Type / Postgres Meaning
+String => TEXT / VARCHAR
+Int	=> INTEGER
+Boolean	=> BOOLEAN
+DateTime => TIMESTAMP
+Decimal	=> DECIMAL
