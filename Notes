@@ -42,3 +42,6 @@ Int	=> INTEGER
 Boolean	=> BOOLEAN
 DateTime => TIMESTAMP
 Decimal	=> DECIMAL
+
+
+npx prisma studio => to get UI of your database on browser!
