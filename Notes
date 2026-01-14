@@ -45,3 +45,93 @@ Decimal	=> DECIMAL
 
 
 npx prisma studio => to get UI of your database on browser!
+
+Node = JavaScript runtime outside the browser
+Why Node exists
+
+Browsers already had:
+
+JS engine (V8)
+
+Event loop
+
+Async I/O
+
+But:
+
+No filesystem access
+
+No sockets
+
+No DB access
+
+Node took V8 and added system APIs:
+
+Files (fs)
+
+Network (http, net)
+
+Processes
+
+Environment variables
+
+So now JS can:
+
+Listen on ports
+
+Talk to databases
+
+Read/write files
+
+That’s why backend JS is possible.
+
+Express — why it exists
+
+Express is a thin abstraction over Node’s HTTP module
+
+It gives you:
+
+Routing
+
+Middleware pipeline
+
+Request/response helpers
+
+Predictable structure
+
+It just organizes HTTP logic.
+
+Think of Express as:
+
+“A traffic controller for requests”
+
+Express mental model:
+Every request goes through:
+Request
+  ↓
+Middleware 1
+  ↓
+Middleware 2
+  ↓
+Route handler
+  ↓
+Response
+
+- Middleware can:
+
+Modify request
+
+Block request
+
+Attach data
+
+Log
+
+Authenticate
+
+| Layer      | Responsibility  |
+| ---------- | --------------- |
+| Node       | Runtime         |
+| Express    | HTTP + routing  |
+| Prisma     | Data access     |
+| PostgreSQL | Source of truth |
