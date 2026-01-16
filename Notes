@@ -212,3 +212,27 @@ project/
 ├── controllers/     ← logic for each route
 ├── middleware/      ← custom middleware
 └── public/          ← static files (images, css, js)
+
+------------------------
+
+Route (Express)
+   ↓
+Service (Business logic)
+   ↓
+Prisma (DB access)
+
+| Layer   | Question                                     |
+| ------- | -------------------------------------------- |
+| Route   | How does the request enter/leave the system? |
+| Service | What rules decide the result?                |
+| Prisma  | How is data stored/fetched?                  |
+
+If an interviewer asks:
+
+“Why not put everything in the route?”
+
+You answer:
+
+“Routes should only handle transport concerns. Business rules belong in services so they’re reusable, testable, and independent of HTTP.”
+or
+“Routes handle transport concerns like HTTP and request/response. Services encapsulate business logic and rules so they’re reusable, testable, and independent of the delivery mechanism.”
