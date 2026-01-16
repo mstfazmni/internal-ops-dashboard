@@ -2,6 +2,8 @@
 import express from "express";
 // import service to get customer summary
 import { getCustomerSummary } from "./services/customerSummary.service";
+// import service to get customer accounts
+import { getCustomerAccounts } from "./services/customerAccounts.service";
 
 // initialize express app
 const app = express();
@@ -27,6 +29,24 @@ app.get("/customers/:id/summary", async (req, res) => {
     }
     
 });
+
+// endpoint to get customer accounts by ID
+app.get("/customers/:id/accounts", async (req, res) => {
+    try {
+        const customerId = req.params.id;
+        const accounts = await getCustomerAccounts(customerId);
+
+        if (!accounts) {
+            return res.status(404).json({ error: "Customer not found" });
+        }
+
+        res.json(accounts);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+})
+
 
 // start the server
 app.listen(3000, () => {
