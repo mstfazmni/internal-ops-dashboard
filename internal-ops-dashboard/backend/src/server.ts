@@ -19,6 +19,7 @@ app.get("/customers/:id/summary", async (req, res) => {
     try {
         // first find out which customer id is requesting the summary
         const customerId = req.params.id;
+        // call the service to get summary
         const summary = await getCustomerSummary(customerId);
 
         if (!summary) {
@@ -39,6 +40,7 @@ app.get("/customers/:id/accounts", async (req, res) => {
     try {
         // first find out which customer id is requesting the accounts
         const customerId = req.params.id;
+        // call the service to get accounts
         const accounts = await getCustomerAccounts(customerId);
 
         // if no accounts found, return 404
@@ -55,17 +57,24 @@ app.get("/customers/:id/accounts", async (req, res) => {
     }
 })
 
+// endpoint to get account transactions by account ID
 app.get("/accounts/:id/transactions", async (req, res) => {
+    // handle potential errors with try-catch
     try {
+        // first find out which account id is requesting the transactions
         const accountId = req.params.id;
+        // call the service to get transactions
         const transactions = await getAccountTransactions(accountId);
 
+        // if no transactions found, return 404
         if (!transactions) {
             return res.status(404).json({ error: "Account not found" });
         }
 
+        // return the transactions
         res.json(transactions);
     } catch (error) {
+        // log the error and return 500
         console.error(error);
         res.status(500).json({ error: "Internal server error" });
     }
