@@ -179,6 +179,10 @@ Request → middleware → route → response
 What is “routing”?
 Routing is simply telling your server what to do when someone visits a specific URL.
 
+app.get("/customers/:id/summary", ...)
+You are literally saying:
+“When an HTTP GET request hits this path, run this function.”
+
 How Node + Express handle a request?
 
 Imagine someone visits:

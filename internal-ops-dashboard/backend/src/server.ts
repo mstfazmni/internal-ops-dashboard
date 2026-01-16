@@ -2,6 +2,7 @@
 import express from "express";
 // import prisma client instance
 import { prisma } from "./prisma";
+import { stat } from "node:fs";
 
 // initialize express app
 const app = express();
@@ -18,13 +19,35 @@ app.get("/customers/:id/summary", async (req, res) => {
         where: { id: customerId }
     });
 
+
     // handle case where customer is not found
     if (!customer) {
         return res.status(404).json({ error: "Customer not found" });
     }
 
-    // respond with the customer details
-    res.json(customer);
+    // fetch counts of related entities flags
+    const flagsCount = await prisma.flag.count({
+        where: { customerId }
+    })
+
+    // fetch counts of related entities notes
+    const notesCount = await prisma.note.count({
+        where: { customerId }
+    });
+
+    // risk status logic
+    const riskStatus = flagsCount > 0 ? "SUSPICIOUS" : "NORMAL";
+
+    // respond with the response details
+    res.json({
+        name: customer.fullName,
+        email: customer.email,
+        status: customer.status,
+        riskStatus,
+        flagsCount,
+        notesCount,
+        createdAt: customer.createdAt
+    });
 });
 
 // start the server
