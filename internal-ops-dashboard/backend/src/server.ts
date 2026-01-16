@@ -32,16 +32,21 @@ app.get("/customers/:id/summary", async (req, res) => {
 
 // endpoint to get customer accounts by ID
 app.get("/customers/:id/accounts", async (req, res) => {
+    // handle potential errors with try-catch
     try {
+        // first find out which customer id is requesting the accounts
         const customerId = req.params.id;
         const accounts = await getCustomerAccounts(customerId);
 
+        // if no accounts found, return 404
         if (!accounts) {
             return res.status(404).json({ error: "Customer not found" });
         }
 
+        // return the accounts
         res.json(accounts);
     } catch (error) {
+        // log the error and return 500
         console.error(error);
         res.status(500).json({ error: "Internal server error" });
     }
