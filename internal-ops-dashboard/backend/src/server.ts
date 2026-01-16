@@ -10,15 +10,22 @@ app.use(express.json());
 
 // endpoint to get customer summary by ID
 app.get("/customers/:id/summary", async (req, res) => {
-    // first find out which customer id is requesting the summary
-    const customerId = req.params.id;
-    const summary = await getCustomerSummary(customerId);
+    // handle potential errors with try-catch
+    try {
+        // first find out which customer id is requesting the summary
+        const customerId = req.params.id;
+        const summary = await getCustomerSummary(customerId);
 
-    if (!summary) {
-        return res.status(404).json({ error: "Customer not found" });
+        if (!summary) {
+            return res.status(404).json({ error: "Customer not found" });
+        }
+
+        res.json(summary);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Internal server error" })
     }
-
-    return res.json(summary);
+    
 });
 
 // start the server

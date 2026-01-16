@@ -43,3 +43,8 @@ export async function getCustomerSummary(customerId: string) {
         createdAt: customer.createdAt
     };
 }
+
+//Notice:
+//Service does NOT know about res.status
+//Service does NOT catch HTTP errors
+//Service returns null or data
