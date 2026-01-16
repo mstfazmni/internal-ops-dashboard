@@ -135,3 +135,76 @@ Authenticate
 | Express    | HTTP + routing  |
 | Prisma     | Data access     |
 | PostgreSQL | Source of truth |
+
+
+Node & Express (In Simple Words):
+Node.js  is JavaScript running outside the browser.
+It lets you use JavaScript to build servers, tools, and backend logic.
+Think of Node as the “engine” that runs your code.
+
+---------------------
+
+Express is a small framework that sits on top of Node.
+It makes it easy to build web servers and APIs.
+Without Express, doing simple things in Node takes many lines of code.
+
+---------------------
+
+const express = require('express');
+You load the Express library into your file.
+
+const app = express();
+You create an Express application.
+
+app.get('/', (req, res) => { ... });
+You create a route that listens for GET requests.
+
+(req, res) are objects:
+req = information coming from the user
+res = what you send back to the user
+
+app.listen(3000, () => { ... });
+You tell your server to start listening on port 3000.
+A port is like a “door” your server uses.
+
+console.log('Server running on port 3000');
+Just a message in your terminal so you know it’s working.
+
+What is “middleware”?
+Think of middleware as a checkpoint your request passes through before reaching the final route.
+
+When someone visits your server:
+Request → middleware → route → response
+
+What is “routing”?
+Routing is simply telling your server what to do when someone visits a specific URL.
+
+How Node + Express handle a request?
+
+Imagine someone visits:
+http://localhost:3000/
+Here’s what happens behind the scenes:
+
+1- Node receives the request
+2- Express checks if you have middleware → runs it
+3- Express checks your routes
+4- If a route matches, Express runs your code
+5- You send a response
+6- Node delivers it back to the browser
+
+It’s like a tiny factory:
+
+-Node is the building
+-Express is the conveyor belt
+-Middleware is quality control
+-Routes are the workers doing specific jobs
+-Response is the final product
+
+Typical Express folder structure:
+project/
+│
+├── server.js        ← main file
+├── routes/          ← route files
+├── controllers/     ← logic for each route
+├── middleware/      ← custom middleware
+└── public/          ← static files (images, css, js)

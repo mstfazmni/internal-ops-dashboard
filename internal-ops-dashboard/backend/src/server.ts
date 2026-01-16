@@ -9,6 +9,10 @@ app.get("/customers", async (req, res) => {
    res.json(customers); 
 });
 
+app.get("/customers/:id/summary", async (req, res) => {
+    res.json({ message: "not implemented yet" });
+})
+
 app.listen(3000, () => {
     console.log("Server is running on port http://localhost:3000"); 
 })
