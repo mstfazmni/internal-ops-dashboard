@@ -239,3 +239,20 @@ or
 
 Note:
 “Unhandled errors can crash Node, so routes(Express) must catch errors and translate them into HTTP responses. Services and Prisma should only throw domain or technical errors, not HTTP concepts. Because HTTP is a transport concern and Routes are responsible for translating errors into HTTP responses.”
+
+Note:
+Whenever you wrap code in a try/catch, JavaScript watches the code inside the try block.
+If anything inside the try block fails, JavaScript automatically creates an error object and sends it into the catch.
+
+Notes about 500 error:
+500 = “something broke on the server”
+It’s not the client’s fault
+The server couldn’t complete the request
+
+Notes:
+APIs should return structured data, not plain text
+JSON is the universal format for APIs
+
+What is Prisma seed script?
+"A Prisma seed script is simply a little program you write to fill your database with initial data — usually fake data, test data, or default records your app needs to run."
+It’s just a JavaScript or TypeScript file (usually prisma/seed.ts or prisma/seed.js) that uses the Prisma Client to insert data.
