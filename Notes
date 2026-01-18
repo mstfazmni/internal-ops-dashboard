@@ -256,3 +256,86 @@ JSON is the universal format for APIs
 What is Prisma seed script?
 "A Prisma seed script is simply a little program you write to fill your database with initial data — usually fake data, test data, or default records your app needs to run."
 It’s just a JavaScript or TypeScript file (usually prisma/seed.ts or prisma/seed.js) that uses the Prisma Client to insert data.
+
+What pagination means?
+-Pagination = don’t return everything at once.
+Instead of this:
+“Give me all transactions ever”
+
+You do this:
+“Give me 10 transactions at a time”
+
+Then:
+Page 1 → first 10
+Page 2 → next 10
+Page 3 → next 10
+
+That’s it.
+
+Why pagination exists?
+
+Imagine an account with:
+5 transactions → fine
+5,000 transactions → slow
+5,000,000 transactions → your server dies
+
+Without pagination:
+Huge DB load
+Huge memory usage
+Slow response
+Bad UX
+Easy DoS vector
+
+Pagination protects your backend.
+
+example:
+GET /accounts/123/transactions?page=1&limit=10
+[
+  { "id": 1, ... },
+  { "id": 2, ... },
+  ...
+  { "id": 10 }
+]
+
+GET /accounts/123/transactions?page=2&limit=10
+[
+  { "id": 11, ... },
+  ...
+  { "id": 20 }
+]
+Same endpoint. Different slice of data.
+
+The two key concepts (memorize these)
+1️⃣ limit
+How many items per page
+“Give me 10 transactions”
+
+2️⃣ offset
+How many items to skip
+“Skip the first 20, then give me 10”
+
+Formula:
+offset = (page - 1) × limit
+Example:
+page = 1 → offset = 0
+page = 2 → offset = 10
+page = 3 → offset = 20
+
+Where pagination logic belongs?
+| Layer       | Responsibility                 |
+| ----------- | ------------------------------ |
+| **Route**   | Read `page` & `limit` from URL |
+| **Service** | Calculate offset & query DB    |
+| **DB**      | Return only that slice         |
+
+Note:
+“Pagination prevents large unbounded queries.
+The route reads page and limit, the service calculates offset,
+and the database returns only a slice using skip/take.”
+
+Where pagination starts (route layer)
+Pagination parameters always come from the URL, not the body.
+
+So in Express:
+req.params → path variables (:id)
+req.query → pagination controls

@@ -63,11 +63,21 @@ app.get("/accounts/:id/transactions", async (req, res) => {
     try {
         // first find out which account id is requesting the transactions
         const accountId = req.params.id;
-        // call the service to get transactions
-        const transactions = await getAccountTransactions(accountId);
 
-        // if no transactions found, return 404
-        if (!transactions) {
+        // get pagination parameters from query, default to page 1 and limit 5
+        const page = Number(req.query.page) || 1;
+        const limit = Number(req.query.limit) || 5;
+
+        // call the service to get transactions
+        const transactions = await getAccountTransactions(
+            accountId,
+            page,
+            limit
+        );
+
+        // “The API returns an empty array with 200 OK.
+        // A 404 is only returned if the account itself doesn’t exist.”
+        if (transactions === null) {
             return res.status(404).json({ error: "Account not found" });
         }
 
