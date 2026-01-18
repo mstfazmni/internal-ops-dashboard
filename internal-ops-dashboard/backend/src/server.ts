@@ -6,7 +6,8 @@ import { getCustomerSummary } from "./services/customerSummary.service";
 import { getCustomerAccounts } from "./services/customerAccounts.service";
 // import service to get account transactions
 import { getAccountTransactions } from "./services/accountTransaction.service";
-import { get } from "node:http";
+// import service to create customer flag
+import { createCustomerFlag } from "./services/createFlag.service";
 
 // initialize express app
 const app = express();
@@ -85,6 +86,37 @@ app.get("/accounts/:id/transactions", async (req, res) => {
         res.json(transactions);
     } catch (error) {
         // log the error and return 500
+        console.error(error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+})
+
+// endpoint to create a flag for a customer
+app.post("/customers/:id/flags", async (req, res) => {
+    try {   
+        // first find out which customer id is requesting the flag creation
+        const customerId = req.params.id;
+        // extract reason from request body
+        const { reason } = req.body;
+
+        if (!reason) {
+            // if reason is not provided, return 400. 
+            // Why 400? 
+            // Client sent bad input. That’s NOT a server error
+            res.status(400).json({ error: "Reason is required" });
+        }
+
+        // call the service to create the flag
+        const flag = await createCustomerFlag(customerId, reason);
+
+        // if no flag is created, return 404
+        if (!flag) {
+            return res.status(404).json({ error: "Customer not found" });
+        }
+
+        // return the created flag with 201 status
+        res.status(201).json(flag);
+    } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Internal server error" });
     }
