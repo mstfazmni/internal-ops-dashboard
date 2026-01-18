@@ -339,3 +339,29 @@ Pagination parameters always come from the URL, not the body.
 So in Express:
 req.params → path variables (:id)
 req.query → pagination controls
+
+Note:
+In Express:
+req.query Contains: { page: "2", limit: "5" }
+- Query params are strings, so we must convert them.
+
+
+Who sets page and limit?
+The frontend (React app) sets them.
+
+Your backend does not set page and limit.
+Your backend reads them.
+
+Think of it like this:
+Backend = “I can give you paginated data if you tell me which page you want.”
+Frontend = “Okay, I want page 2 with 10 items.”
+
+Why the backend doesn’t set them?
+Because pagination is a client-side decision.
+The frontend decides:
+
+How many items to show per page
+Which page the user is on
+When to load the next page
+
+The backend just responds with the correct slice of data.

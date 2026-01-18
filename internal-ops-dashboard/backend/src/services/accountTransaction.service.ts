@@ -28,8 +28,21 @@ export async function getAccountTransactions(
         // take → limit
         skip: offset,
         take: limit
+    });
+
+    // get total count of transactions for potential further use
+    const totalTransactions = await prisma.transaction.count({
+        where: { accountId }
     })
 
-    // return the transactions
-    return transactions;
+    // return transactions along with pagination info
+    // “I return paginated data with metadata including total count and total pages
+    //  so the frontend can render pagination controls correctly.”
+    return {
+        data: transactions,
+        page,
+        limit,
+        total: totalTransactions,
+        totalPages: Math.ceil(totalTransactions / limit)
+    };
 }
