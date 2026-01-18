@@ -131,14 +131,22 @@ app.get("/customers/:id/flags", async (req, res) => {
         // first find out which customer id is requesting the flags
         const customerId = req.params.id;
 
+        // default pagination parameters if not provided
+        const page = Number(req.query.page) || 1;
+        const limit = Number(req.query.limit) || 5;
+
         // call the service to get the flags
-        const flags = await getCustomerFlags(customerId);
+        const flags = await getCustomerFlags(
+            customerId,
+            page,
+            limit
+        );
 
         // if no flags found, return 404
         if (!flags) {
             return res.status(404).json({ error: "Customer not found" });
         }
-        
+
         // If no flags → []
         // If flags exist → array of flags
         // If customer doesn’t exist → 404
