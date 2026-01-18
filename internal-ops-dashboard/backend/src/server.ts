@@ -7,10 +7,12 @@ import { getCustomerAccounts } from "./services/customerAccounts.service";
 // import service to get account transactions
 import { getAccountTransactions } from "./services/accountTransaction.service";
 // import service to create customer flag
-import { createCustomerFlag } from "./services/createFlag.service";
+import { createCustomerFlag } from "./services/createCustomerFlag.service";
 // import service to get customer flags
 import { getCustomerFlags } from "./services/getCustomerFlags.service";
-import { get } from "node:http";
+// import service to create customer note
+import { createCustomerNote } from "./services/createCustomerNote.service";
+import { create } from "node:domain";
 
 // initialize express app
 const app = express();
@@ -153,6 +155,32 @@ app.get("/customers/:id/flags", async (req, res) => {
 
         // return the flags
         res.json(flags);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+})
+
+//endpoint to create a customer note
+app.post("/customers/:id/notes", async (req, res) => {
+    try {
+        // first find out which customer id is requesting the note creation
+        const customerId = req.params.id;
+        // extract content from request body
+        const { content } = req.body;
+
+        if (!content) {
+            res.status(400).json({ error: "Content is required" });
+        }
+
+        // call the service to create the note
+        const note = await createCustomerNote(customerId, content);
+
+        if (!note) {
+            return res.status(404).json({ error: "Customer not found" });
+        }
+
+        res.status(201).json(note);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Internal server error" });
