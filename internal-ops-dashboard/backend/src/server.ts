@@ -8,6 +8,9 @@ import { getCustomerAccounts } from "./services/customerAccounts.service";
 import { getAccountTransactions } from "./services/accountTransaction.service";
 // import service to create customer flag
 import { createCustomerFlag } from "./services/createFlag.service";
+// import service to get customer flags
+import { getCustomerFlags } from "./services/getCustomerFlags.service";
+import { get } from "node:http";
 
 // initialize express app
 const app = express();
@@ -116,6 +119,32 @@ app.post("/customers/:id/flags", async (req, res) => {
 
         // return the created flag with 201 status
         res.status(201).json(flag);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+})
+
+// endpoint to get flags for a customer
+app.get("/customers/:id/flags", async (req, res) => {
+    try {
+        // first find out which customer id is requesting the flags
+        const customerId = req.params.id;
+
+        // call the service to get the flags
+        const flags = await getCustomerFlags(customerId);
+
+        // if no flags found, return 404
+        if (!flags) {
+            return res.status(404).json({ error: "Customer not found" });
+        }
+        
+        // If no flags → []
+        // If flags exist → array of flags
+        // If customer doesn’t exist → 404
+
+        // return the flags
+        res.json(flags);
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: "Internal server error" });
