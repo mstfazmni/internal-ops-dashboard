@@ -1,11 +1,11 @@
 // import express framework
 import express from "express";
 // import service to get customer summary
-import { getCustomerSummary } from "./services/customerSummary.service";
+import { getCustomerSummary } from "./services/getCustomerSummary.service";
 // import service to get customer accounts
-import { getCustomerAccounts } from "./services/customerAccounts.service";
+import { getCustomerAccounts } from "./services/getCustomerAccounts.service";
 // import service to get account transactions
-import { getAccountTransactions } from "./services/accountTransaction.service";
+import { getAccountTransactions } from "./services/getAccountTransaction.service";
 // import service to create customer flag
 import { createCustomerFlag } from "./services/createCustomerFlag.service";
 // import service to get customer flags

@@ -365,3 +365,16 @@ Which page the user is on
 When to load the next page
 
 The backend just responds with the correct slice of data.
+
+Workflow:
+Client (Frontend)
+   ↓
+GET /customers/:id/flags?page=1
+   ↓
+Controller
+   ↓
+Service (validation + pagination logic)
+   ↓
+Prisma
+   ↓
+Database
