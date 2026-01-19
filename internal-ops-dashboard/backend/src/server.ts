@@ -12,7 +12,8 @@ import { createCustomerFlag } from "./services/createCustomerFlag.service";
 import { getCustomerFlags } from "./services/getCustomerFlags.service";
 // import service to create customer note
 import { createCustomerNote } from "./services/createCustomerNote.service";
-import { create } from "node:domain";
+// import service to get customer notes
+import { getCustomerNotes } from "./services/getCustomerNotes.service";
 
 // initialize express app
 const app = express();
@@ -183,6 +184,29 @@ app.post("/customers/:id/notes", async (req, res) => {
         res.status(201).json(note);
     } catch (error) {
         console.error(error);
+        res.status(500).json({ error: "Internal server error" });
+    }
+});
+
+//endpoint to get customer notes
+app.get("/customers/:id/notes", async (req, res) => {
+    try {
+        // first find out which customer id is requesting the notes
+        const customerId = req.params.id;
+        // default pagination parameters if not provided
+        const page = Number(req.query.page) || 1;
+        const limit = Number(req.query.limit) || 5;
+
+        // call the service to get the notes
+        const notes = await getCustomerNotes(customerId, page, limit);
+
+        if (!notes) {
+            return res.status(404).json({ error: "Customer not found" });
+        }
+
+        res.json(notes);
+    } catch (error) {
+        console.log(error);
         res.status(500).json({ error: "Internal server error" });
     }
 })
