@@ -1,7 +1,9 @@
 // import express framework
 import express from "express";
-// import service to get customer summary
-import { getCustomerSummary } from "./services/getCustomerSummary.service";
+// import customer routes
+import customerRoutes from "./routes/customer.routes";
+
+
 // import service to get customer accounts
 import { getCustomerAccounts } from "./services/getCustomerAccounts.service";
 // import service to get account transactions
@@ -20,26 +22,12 @@ const app = express();
 // middleware to parse JSON bodies
 app.use(express.json());
 
-// endpoint to get customer summary by ID
-app.get("/customers/:id/summary", async (req, res) => {
-    // handle potential errors with try-catch
-    try {
-        // first find out which customer id is requesting the summary
-        const customerId = req.params.id;
-        // call the service to get summary
-        const summary = await getCustomerSummary(customerId);
 
-        if (!summary) {
-            return res.status(404).json({ error: "Customer not found" });
-        }
+// *********Defining API endpoints (HTTP Routes)*********
 
-        res.json(summary);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: "Internal server error" })
-    }
-    
-});
+// use customer routes for /customers path
+app.use("/customers", customerRoutes);
+
 
 // endpoint to get customer accounts by ID
 app.get("/customers/:id/accounts", async (req, res) => {

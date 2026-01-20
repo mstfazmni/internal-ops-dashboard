@@ -366,6 +366,7 @@ When to load the next page
 
 The backend just responds with the correct slice of data.
 
+--------------------------------
 Workflow:
 Client (Frontend)
    ↓
@@ -378,3 +379,57 @@ Service (validation + pagination logic)
 Prisma
    ↓
 Database
+--------------------------------
+HTTP request
+   ↓
+Controller (transport layer)
+   ↓
+Service (business rules)
+   ↓
+Prisma (data access)
+   ↓
+PostgreSQL
+
+
+Note:
+What is a controller?
+A controller:
+
+-Talks HTTP
+-Reads req
+-Sends res
+-Calls services
+-Does NO business logic
+If you ever see Prisma inside a controller → ❌ design smell
+
+Note:
+“I follow a layered architecture.
+Routes map URLs to controllers.
+Controllers handle HTTP concerns.
+Services contain business logic.
+Prisma is the data access layer.”
+
+Note:
+Routes decide WHERE the request goes
+Controllers decide WHAT to send back
+Services decide HOW the business works
+
+- Controller = “HTTP brain”
+- Route = “URL wiring”
+
+Note:
+Request
+→ Middleware (auth, validation, logging)
+→ Controller (req → res)
+→ Service (business rules)
+→ Database
+
+
+Note:
+| Layer          | Responsibility                  |
+| -------------- | ------------------------------- |
+| **Route**      | Wiring + middleware             |
+| **Middleware** | Auth / permissions / validation |
+| **Controller** | HTTP logic (status codes, JSON) |
+| **Service**    | Business logic                  |
+| **Prisma**     | Data access                     |
