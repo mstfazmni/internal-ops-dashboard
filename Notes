@@ -2034,3 +2034,126 @@ So instead of crowding the main restaurant with everything, you organize it into
 
 Note:
 Router lets you group related routes into their own file so your server stays clean and organized.
+
+----------------------------
+High-level architecture (what i built)
+Think in layers (top → bottom):
+
+Client (Frontend)
+   ↓ HTTP
+Routes (Express)
+   ↓
+Controllers
+   ↓
+Services
+   ↓
+Prisma (ORM)
+   ↓
+PostgreSQL
+
+- Each layer has ONE job.
+
+Explain EACH layer:
+
+🟦 Routes
+
+What they do
+- Define URLs
+- Attach middleware (auth, validation)
+- Forward to controllers
+
+What they do NOT do
+- No business logic
+- No database access
+
+Interview line
+
+“Routes define the API surface and attach middleware, then delegate to controllers.”
+
+🟩 Controllers
+
+What they do
+- Read req
+- Call a service
+- Decide HTTP response (status, json)
+
+What they do NOT do
+- No business rules
+- No Prisma logic
+
+Interview line
+
+“Controllers translate HTTP requests into service calls and map results back to HTTP responses.”
+
+🟨 Services (MOST IMPORTANT)
+
+What they do
+- Business logic
+- Rules
+- Decisions
+- Aggregations
+
+Examples from your project
+- Count flags + notes
+- Derive riskStatus
+- Pagination logic
+- Verify customer/account existence
+
+What they do NOT do
+- No req or res
+- No HTTP status codes
+
+Interview line
+
+“Services encapsulate business logic and are framework-agnostic.”
+
+🟥 Prisma (Data Layer)
+
+What it does
+- Talks to the database
+- Converts TypeScript → SQL
+- Enforces schema & relations
+
+Why Prisma over raw SQL
+- Type safety
+- Auto migrations
+- Predictable queries
+
+Interview line
+
+“Prisma acts as the data access layer, keeping database logic isolated from business logic.”
+
+******************
+
+Example: Walk through ONE request (interview gold)
+
+Let’s explain this route:
+GET /customers/:id/summary
+Step-by-step:
+
+1: Route
+
+Matches the URL
+Runs middleware
+Calls controller
+
+2: Controller
+
+Extracts customerId
+Calls getCustomerSummary(customerId)
+
+3: Service
+
+Fetches customer
+Counts flags & notes
+Computes riskStatus
+Returns a clean object
+
+4: Controller
+Sends JSON response
+
+“Each layer has a single responsibility, which keeps the system maintainable and testable.”
+
+Note:
+“Authentication is enforced at the routing layer using middleware before requests reach controllers.”
+----------------------------
