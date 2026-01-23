@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import { get } from 'node:http';
 import { getAccountTransactionsController } from '../controllers/account.controller';
 
 // initialize router
