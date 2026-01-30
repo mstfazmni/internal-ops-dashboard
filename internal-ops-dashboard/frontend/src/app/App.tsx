@@ -1,12 +1,11 @@
-import { CustomerSummaryHeader } from '../components/CustomerSummaryHeader';
-import { mockCustomerSummary } from '../mock/customerSummary.mock';
+import { CustomerSummary } from '../components/CustomerSummary';
 import '../App.css';
 
 function App() {
 
   return (
     <>
-      <CustomerSummaryHeader customer={mockCustomerSummary}></CustomerSummaryHeader>
+      <CustomerSummary customerId='2c9d2b91-0050-4d79-80cc-bca6d6475879' />
     </>
   )
 }

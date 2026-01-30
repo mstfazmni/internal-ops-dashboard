@@ -1,6 +1,6 @@
 export async function fetchCustomerSummary(customerId: string) {
     const response = await fetch(
-        `https://localhost:3000/customers/${customerId}/summary`
+        `http://localhost:3000/customers/${customerId}/summary`
     );
 
     if (!response.ok) {

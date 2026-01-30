@@ -1,5 +1,7 @@
 // import express framework
 import express from "express";
+// import cors
+import cors from "cors";
 // import customer routes
 import customerRoutes from "./routes/customer.routes";
 import accountRoutes from "./routes/account.routes";
@@ -8,7 +10,10 @@ import accountRoutes from "./routes/account.routes";
 const app = express();
 // middleware to parse JSON bodies
 app.use(express.json());
-
+// enable CORS for all routes
+app.use(cors({
+    origin: "*", // allow all origins
+}));
 
 // *********Defining API endpoints (HTTP Routes)*********
 

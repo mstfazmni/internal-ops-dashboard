@@ -1,4 +1,3 @@
-import { use } from "react";
 import { useCustomerSummary } from "../hooks/useCustomerSummary";
 
 type props = {
