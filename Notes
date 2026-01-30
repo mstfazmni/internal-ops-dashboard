@@ -1,3 +1,6 @@
+---------------------------------------------------------------
+BACKEND + DB NOTES
+
 You define models → Prisma generates SQL → Postgres executes it.
 
 ---------------------
@@ -2157,3 +2160,69 @@ Sends JSON response
 Note:
 “Authentication is enforced at the routing layer using middleware before requests reach controllers.”
 ----------------------------
+
+Note:
+Big-picture workflow (memorize this)
+
+“I designed the backend first to stabilize the API contract, then built the frontend to consume it, focusing on real-world concerns like pagination, loading states, and error handling.”
+
+
+
+
+
+
+
+
+--------------------------------------------------------------
+FRONT END NOTES
+
+Folder structure:
+src/
+ ├── app/
+ ├── components/
+ ├── api/          ← NEW (HTTP calls only)
+ ├── hooks/        ← NEW (data fetching logic)
+ ├── types/
+ ├── mock/
+ ├── styles/
+
+
+Note:
+
+------------------
+Why add api/?
+
+Problem right now:
+
+If you fetch data directly inside components:
+- UI + HTTP logic get mixed
+- Hard to test
+- Hard to explain in interviews
+
+Solution:
+
+- api/ contains ONLY fetch calls.
+
+Interview sentence:
+“I isolate HTTP communication in a dedicated API layer.”
+
+------------------
+Why add hooks/?
+
+Problem:
+
+If components manage:
+
+- loading
+- error
+- retries
+- state
+
+They become messy.
+
+Solution:
+
+Hooks own data behavior, components own rendering.
+
+Interview sentence:
+“Custom hooks encapsulate async state and side effects.”

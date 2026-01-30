@@ -1,4 +1,4 @@
-import type { CustomerSummary } from "../../types/customer";
+import type { CustomerSummary } from "../types/customer";
 
 interface Props {
     customer: CustomerSummary

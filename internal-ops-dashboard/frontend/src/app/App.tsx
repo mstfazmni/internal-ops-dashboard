@@ -1,4 +1,4 @@
-import { CustomerSummaryHeader } from '../components/customer/CustomerSummaryHeader';
+import { CustomerSummaryHeader } from '../components/CustomerSummaryHeader';
 import { mockCustomerSummary } from '../mock/customerSummary.mock';
 import '../App.css';
 
