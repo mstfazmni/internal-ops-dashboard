@@ -2226,3 +2226,41 @@ Hooks own data behavior, components own rendering.
 
 Interview sentence:
 “Custom hooks encapsulate async state and side effects.”
+
+-------------------------
+
+What a hook actually is?
+
+A hook is just:
+
+- a function
+- that uses React state
+- and returns values
+
+Think of it as a mini-service for the UI.
+
+-------------------------
+
+What the component will NOT care about?
+
+- URLs
+- try/catch
+- async logic
+
+Interview sentence:
+“Components should describe what to render, not how to fetch.”
+
+--------------------------
+
+Data flow:
+Component
+   ↓
+Hook (useCustomerSummary)
+   ↓
+API function (fetchCustomerSummary)
+   ↓
+Backend Route
+   ↓
+Service
+   ↓
+Database
