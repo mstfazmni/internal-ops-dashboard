@@ -2264,3 +2264,8 @@ Backend Route
 Service
    ↓
 Database
+
+
+Note:
+Rule:
+Pages & components consume hooks. Hooks never render UI.
