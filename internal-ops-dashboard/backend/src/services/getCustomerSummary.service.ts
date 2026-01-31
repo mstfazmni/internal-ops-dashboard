@@ -1,5 +1,7 @@
 // import prisma client instance
 import { prisma } from "../prisma";
+// import risk calculation utility
+import { calculateRiskStatus } from "../utils/risk";
 
 // service to get customer summary by ID
 // This function:
@@ -30,7 +32,7 @@ export async function getCustomerSummary(customerId: string) {
     });
 
     // risk status logic
-    const riskStatus = flagsCount > 0 ? "SUSPICIOUS" : "NORMAL";
+    const riskStatus = calculateRiskStatus(flagsCount);
 
     // respond with the response details
     return {
