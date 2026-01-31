@@ -12,7 +12,7 @@ const app = express();
 app.use(express.json());
 // enable CORS for all routes
 app.use(cors({
-    origin: "*", // allow all origins
+    origin: "http://localhost:5173" // frontend server origin
 }));
 
 // *********Defining API endpoints (HTTP Routes)*********

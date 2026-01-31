@@ -2269,3 +2269,27 @@ Database
 Note:
 Rule:
 Pages & components consume hooks. Hooks never render UI.
+
+Note:
+Browser
+  └── React (5173)
+        └── HTTP request
+              └── Express API (3000)
+                    └── Prisma
+                          └── PostgreSQL
+Browser enforces CORS
+Server declares trust
+
+Note:
+“We use CORS to explicitly allow trusted frontend origins to access the backend API.”
+
+Note:
+Mental Model:
+Every API call always has 4 states:
+
+⏳ Loading → request in flight
+❌ Error → request failed
+📭 Empty → request succeeded but no data
+✅ Success → data exists
+
+- You must render something for each.

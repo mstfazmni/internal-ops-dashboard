@@ -9,15 +9,15 @@ export function CustomerSummary ({ customerId }: props) {
 
     // Handle loading state
     if (loading) {
-        return <div>Loading customer...</div>;
+        return <div>Loading customer summary...</div>;
     }
 
     // Handle error state
     if (error) {
-        return <div>{error}</div>;
+        return <p style={{ color: "red" }}>{error}</p>;
     }
 
-    // Handle no data state
+    // Handle empty data state
     if (!data) {
         return <div>No customer data available.</div>;
     }
