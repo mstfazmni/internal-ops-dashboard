@@ -1,4 +1,5 @@
 import { useCustomerSummary } from "../hooks/useCustomerSummary";
+import { RiskBadge } from "./RiskBadge";
 
 type props = {
     customerId: string
@@ -25,9 +26,12 @@ export function CustomerSummary ({ customerId }: props) {
     // Render customer summary
     return (
         <div>
-            <h2>{data.name}</h2>
+            <h2>Name: {data.name}</h2>
             <p>Email: {data.email}</p>
-            <p>Status: {data.riskStatus}</p>
+            <p>Status: {data.status}</p>
+            <p>
+                Risk Status: <RiskBadge status={data.riskStatus}/> 
+            </p>
             <p>Flags: {data.flagsCount}</p>
             <p>Notes: {data.notesCount}</p>
             <p>Created: {new Date(data.createdAt).toLocaleDateString()}</p>
