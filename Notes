@@ -2328,3 +2328,7 @@ App
 Note:
 “I separate my UI into layouts, pages, and components.
 Layouts handle structure, pages handle composition, and components handle rendering logic.”
+
+--------------------------
+Note:
+Frontend = fetch → display → react to user
