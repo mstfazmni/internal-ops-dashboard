@@ -2293,3 +2293,22 @@ Every API call always has 4 states:
 ✅ Success → data exists
 
 - You must render something for each.
+
+----------------------------
+
+Note:
+“I always start with backend contracts and business rules.
+Then I build thin UI layers on top, focusing first on correctness, then usability, and finally aesthetics.”
+
+----------------------------
+
+Note: 
+🎯 components folder structure (layout and pages)
+Layout = the frame of the app
+(header, sidebar, main content area)
+
+Page = a full screen
+(customer page, dashboard page, settings page)
+
+Components = small reusable pieces
+(summary card, badge, table, button)
