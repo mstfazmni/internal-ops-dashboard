@@ -2312,3 +2312,19 @@ Page = a full screen
 
 Components = small reusable pieces
 (summary card, badge, table, button)
+
+
+--------------------------
+
+Note:
+App
+ └── AppLayout
+      └── Page (CustomerPage, AccountsPage, etc.)
+           └── Components (CustomerSummary, RiskBadge, ...)
+           
+👉 Layout wraps pages
+👉 Pages are passed as children
+
+Note:
+“I separate my UI into layouts, pages, and components.
+Layouts handle structure, pages handle composition, and components handle rendering logic.”

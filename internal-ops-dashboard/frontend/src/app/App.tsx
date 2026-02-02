@@ -1,12 +1,13 @@
-import { CustomerSummary } from '../components/CustomerSummary';
+import { AppLayout } from '../components/layout/AppLayout';
+import { CustomerPage } from '../components/pages/CustomerPage';
 import '../App.css';
 
 function App() {
-
+// Main application component that uses AppLayout to wrap pages
   return (
-    <>
-      <CustomerSummary customerId='2c9d2b91-0050-4d79-80cc-bca6d6475879' />
-    </>
+    <AppLayout>
+      <CustomerPage />
+    </AppLayout>
   )
 }
 
