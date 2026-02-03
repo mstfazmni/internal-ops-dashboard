@@ -1,6 +1,7 @@
+import { useState } from "react";
 import { CustomerSummary } from "../CustomerSummary";
 import { AccountsList } from "../AccountsList";
-import { useState } from "react";
+import { TransactionsList } from "../TransactionsList";
 
 export function CustomerPage() {
     const customerId = "2c9d2b91-0050-4d79-80cc-bca6d6475879";
@@ -10,12 +11,23 @@ export function CustomerPage() {
     return (
         <div className="customer-page">
             <CustomerSummary customerId={customerId} />
+
             <AccountsList 
                 customerId={customerId}
                 onSelectAccount={setSelectedAccountId}
             />
+
+            {!selectedAccountId && (
+                <p style={{ marginTop: 16 }}>
+                    Select an account to view transactions.
+                </p>
+            )}
+
+            {selectedAccountId && (
+                <TransactionsList accountId={selectedAccountId}/>
+            )}
         </div>
-    )
+    );
 }
 
 // Later this page will also render:
