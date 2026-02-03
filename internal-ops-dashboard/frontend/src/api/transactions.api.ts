@@ -4,7 +4,7 @@ export async function fetchAccountTransactions (accountId: string) {
     );
 
     if(!response.ok) {
-        throw new Error("Failed to fetch transactions for account")
+        throw new Error("Failed to fetch account transactions")
     }
 
     return response.json();
