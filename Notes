@@ -2332,3 +2332,6 @@ Layouts handle structure, pages handle composition, and components handle render
 --------------------------
 Note:
 Frontend = fetch → display → react to user
+
+Note:
+Frontend must match API response shape exactly

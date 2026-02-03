@@ -12,7 +12,7 @@ export function useAccountTransactions (accountId: string) {
             try {
                 setLoading(true);
                 const result = await fetchAccountTransactions(accountId);
-                setData(result);
+                setData(result.data);
             } catch (err) {
                 setError("Could not load transactions.")
             } finally {
