@@ -2334,4 +2334,7 @@ Note:
 Frontend = fetch → display → react to user
 
 Note:
-Frontend must match API response shape exactly
+Frontend must match API response shape exactly.
+
+Note:
+Pagination protects both the database and the UI from unbounded data.
