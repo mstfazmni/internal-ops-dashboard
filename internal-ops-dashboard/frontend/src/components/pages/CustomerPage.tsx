@@ -14,6 +14,7 @@ export function CustomerPage() {
 
             <AccountsList 
                 customerId={customerId}
+                selectedAccountId={selectedAccountId}
                 onSelectAccount={setSelectedAccountId}
             />
 
