@@ -20,7 +20,7 @@ export function AccountsList ({
     return (
         <div>
             <h3>Accounts</h3>
-            <ul>
+            <ul style={{ listStyle: "none", padding: 0 }}>
                 {data.map((account) => {
                     const isSelected = account.id === selectedAccountId;
 
