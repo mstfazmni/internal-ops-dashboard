@@ -23,7 +23,9 @@ export function TransactionsList ({ accountId } : Props) {
 
     return (
         <div style={{ marginTop: 24 }}>
-            <h4>Transactions (Page {page})</h4>
+            <h4>
+                Transactions (Page {page} of {totalPages})
+            </h4>
 
             <ul style={{ listStyle: "none", padding: 0 }}>
                 {transactions.map((tx) => {
@@ -58,6 +60,28 @@ export function TransactionsList ({ accountId } : Props) {
                     );
                 })}
             </ul>
+
+            {/* Pagination Controls */}
+            <div
+                style={{
+                    display: "flex",
+                    justifyContent: "space-between",
+                    marginTop: 12
+                }}
+            >
+                <button onClick={prevPage} disabled={!canPrev}>
+                    Previous
+                </button>
+
+                <span>
+                    Page {page} / {totalPages}
+                </span>
+
+                <button onClick={nextPage} disabled={!canNext}>
+                    Next
+                </button>
+
+            </div>
         </div>
     )
 }
