@@ -5,18 +5,28 @@ type Props = {
 }
 
 export function TransactionsList ({ accountId } : Props) {
-    const { data, loading, error } = useAccountTransactions(accountId);
+    const { 
+        transactions,
+        totalPages, 
+        loading, 
+        error,
+        page,
+        canNext,
+        canPrev,
+        nextPage,
+        prevPage 
+    } = useAccountTransactions(accountId);
 
     if (loading) return <p>Loading transactions...</p>
     if (error) return <p style={{ color: "red" }}>{error}</p>
-    if (data.length === 0) return <p>No transactions found.</p>
+    if (transactions.length === 0) return <p>No transactions found.</p>
 
     return (
         <div style={{ marginTop: 24 }}>
-            <h4>Transactions</h4>
+            <h4>Transactions (Page {page})</h4>
 
             <ul style={{ listStyle: "none", padding: 0 }}>
-                {data.map((tx) => {
+                {transactions.map((tx) => {
                     // if it is owed = red and negative 
                     const isDebit = tx.amount < 0;
 
