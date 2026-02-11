@@ -34,14 +34,16 @@ export function useAccountTransactions (accountId: string) {
     const canNext = page < totalPages;
     const canPrev = page > 1;
 
+    // !loading is to prevent multiple clicks while data is loading, which could cause multiple requests to the server
     const nextPage = () => {
-        if (canNext) {
+        if (!loading && canNext) {
             setPage((p) => p + 1);
         }
     }
 
+    // !loading is to prevent multiple clicks while data is loading, which could cause multiple requests to the server
     const prevPage = () => {
-        if (canPrev) {
+        if (!loading && canPrev) {
             setPage((p) => p - 1)
         }
     }

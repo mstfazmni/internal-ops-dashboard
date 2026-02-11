@@ -69,7 +69,7 @@ export function TransactionsList ({ accountId } : Props) {
                     marginTop: 12
                 }}
             >
-                <button onClick={prevPage} disabled={!canPrev}>
+                <button onClick={prevPage} disabled={!canPrev || loading}>
                     Previous
                 </button>
 
@@ -77,7 +77,7 @@ export function TransactionsList ({ accountId } : Props) {
                     Page {page} / {totalPages}
                 </span>
 
-                <button onClick={nextPage} disabled={!canNext}>
+                <button onClick={nextPage} disabled={!canNext || loading}>
                     Next
                 </button>
 
