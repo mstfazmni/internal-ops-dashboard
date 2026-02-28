@@ -2,6 +2,7 @@ import { useState } from "react";
 import { CustomerSummary } from "../CustomerSummary";
 import { AccountsList } from "../AccountsList";
 import { TransactionsList } from "../TransactionsList";
+import './CustomerPage.css';
 
 export function CustomerPage() {
     const customerId = "2c9d2b91-0050-4d79-80cc-bca6d6475879";
@@ -9,24 +10,30 @@ export function CustomerPage() {
     const [selectedAccountId, setSelectedAccountId] = useState<string | null>(null);
 
     return (
-        <div className="customer-page">
-            <CustomerSummary customerId={customerId} />
+        <div className="customer-page-wrapper">
+            <div className="customer-page-container">
 
-            <AccountsList 
-                customerId={customerId}
-                selectedAccountId={selectedAccountId}
-                onSelectAccount={setSelectedAccountId}
-            />
+                <CustomerSummary customerId={customerId} />
 
-            {!selectedAccountId && (
-                <p style={{ marginTop: 16 }}>
+                <div className="section-card">
+                <AccountsList
+                    customerId={customerId}
+                    selectedAccountId={selectedAccountId}
+                    onSelectAccount={setSelectedAccountId}
+                />
+                </div>
+
+                <div className="section-card">
+                {!selectedAccountId ? (
+                    <div className="text-muted text-center py-4">
                     Select an account to view transactions.
-                </p>
-            )}
+                    </div>
+                ) : (
+                    <TransactionsList accountId={selectedAccountId} />
+                )}
+                </div>
 
-            {selectedAccountId && (
-                <TransactionsList accountId={selectedAccountId}/>
-            )}
+            </div>
         </div>
     );
 }

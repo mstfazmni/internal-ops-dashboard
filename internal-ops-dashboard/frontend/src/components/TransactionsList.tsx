@@ -1,4 +1,5 @@
-import { useAccountTransactions } from "../hooks/useAccountTransactions"
+import { useAccountTransactions } from "../hooks/useAccountTransactions";
+import "./TransactionsList.css";
 
 type Props = {
     accountId: string
@@ -17,70 +18,69 @@ export function TransactionsList ({ accountId } : Props) {
         prevPage 
     } = useAccountTransactions(accountId);
 
-    if (loading) return <p>Loading transactions...</p>
-    if (error) return <p style={{ color: "red" }}>{error}</p>
-    if (transactions.length === 0) return <p>No transactions found.</p>
+    if (loading)
+        return <div className="text-muted text-center mt-4">Loading transactions...</div>;
+
+    if (error)
+        return <div className="alert alert-danger mt-3 text-center">{error}</div>;
+
+    if (!transactions || transactions.length === 0)
+        return <div className="text-muted text-center mt-4">No transactions found.</div>;
 
     return (
-        <div style={{ marginTop: 24 }}>
-            <h4>
-                Transactions (Page {page} of {totalPages})
-            </h4>
+        <div className="transactions-wrapper">
+            <div className="transactions-header">
+                <h6 className="fw-semibold mb-0">Transactions</h6>
+                <span className="text-muted small">
+                Page {page} of {totalPages}
+                </span>
+            </div>
 
-            <ul style={{ listStyle: "none", padding: 0 }}>
+            <div className="transactions-container">
                 {transactions.map((tx) => {
-                    // if it is owed = red and negative 
-                    const isDebit = tx.amount < 0;
+                const isDebit = tx.amount < 0;
+                const formattedDate = new Intl.DateTimeFormat("en-CA", {
+                    year: "numeric",
+                    month: "short",
+                    day: "2-digit",
+                }).format(new Date(tx.createdAt));
 
-                    return (    
-                        <li 
-                            key={tx.id}
-                            style={{
-                                display: "flex",
-                                justifyContent: "space-between",
-                                padding: "10px 12px",
-                                marginBottom: "6px",
-                                borderRadius: "6px",
-                                backgroundColor: "#787878",
-                            }}
-                        >
-                        <span>
-                            {new Date(tx.createdAt).toLocaleDateString()}
-                        </span>
+                return (
+                    <div key={tx.id} className="transaction-row">
+                    <div className="transaction-date">{formattedDate}</div>
 
-                        <span
-                            style={{
-                                color: isDebit ? "#dc2626" : "#16a34a",
-                                fontWeight: 600,
-                            }}
-                        >
-                            {isDebit ? "-" : "+"}${Math.abs(tx.amount)}
-                        </span>
-                    </li>
-                    );
+                    <div
+                        className={`transaction-amount ${
+                        isDebit ? "debit" : "credit"
+                        }`}
+                    >
+                        {isDebit ? "-" : "+"}${Math.abs(tx.amount).toLocaleString()}
+                    </div>
+                    </div>
+                );
                 })}
-            </ul>
+            </div>
 
-            {/* Pagination Controls */}
-            <div
-                style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    marginTop: 12
-                }}
-            >
-                <button onClick={prevPage} disabled={!canPrev || loading}>
-                    Previous
+            <div className="transactions-pagination">
+                <button
+                className="pagination-btn"
+                onClick={prevPage}
+                disabled={!canPrev || loading}
+                >
+                Previous
                 </button>
 
-                <span>
-                    Page {page} / {totalPages}
+                <span className="text-muted small">
+                {page} / {totalPages}
                 </span>
 
-                <button onClick={nextPage} disabled={!canNext || loading}>
-                    Next
+                <button
+                className="pagination-btn"
+                onClick={nextPage}
+                disabled={!canNext || loading}
+                >
+                Next
                 </button>
-
             </div>
         </div>
     )

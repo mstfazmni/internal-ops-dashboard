@@ -1,0 +1,57 @@
+.accounts-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.accounts-title {
+  font-weight: 600;
+  margin-bottom: 16px;
+}
+
+.accounts-container {
+  display: flex;
+  gap: 16px;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 800px;
+}
+
+.account-card {
+  width: 180px;
+  padding: 16px;
+  border-radius: 14px;
+  background: white;
+  border: 1px solid #e9ecef;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.account-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+  border-color: #dcdcdc;
+}
+
+.account-card-selected {
+  border-color: #4c6ef5;
+  box-shadow: 0 8px 20px rgba(76, 110, 245, 0.15);
+  background: #f5f8ff;
+}
+
+.account-type {
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.account-balance {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+}
+
+.account-status {
+  font-size: 0.8rem;
+  color: #6c757d;
+}

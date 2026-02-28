@@ -1,4 +1,5 @@
 import { useCustomerAccounts } from "../hooks/useCustomerAccounts";
+import "./AccountsList.css";
 
 type Props = {
     customerId: string;
@@ -13,36 +14,42 @@ export function AccountsList ({
  }: Props) {
     const { data, loading, error } = useCustomerAccounts(customerId);
 
-    if (loading) return <p>Loading accounts...</p>
-    if (error) return <p style={{ color: "red" }}>{error}</p>
-    if (data.length === 0) return <p>No accounts found.</p>
+    if (loading)
+        return <div className="text-muted text-center">Loading accounts...</div>;
+
+    if (error)
+        return <div className="alert alert-danger py-2 text-center">{error}</div>;
+
+    if (!data || data.length === 0)
+        return <div className="text-muted text-center">No accounts found.</div>;
 
     return (
-        <div>
-            <h3>Accounts</h3>
-            <ul style={{ listStyle: "none", padding: 0 }}>
+        <div className="accounts-wrapper">
+            <h6 className="accounts-title">Accounts</h6>
+
+            <div className="accounts-container">
                 {data.map((account) => {
-                    const isSelected = account.id === selectedAccountId;
+                const isSelected = account.id === selectedAccountId;
 
-                    return (
-                        <li 
-                            key={account.id}
-                            onClick={() => onSelectAccount(account.id)}
-                            style={{ 
-                                cursor: "pointer",
-                                padding: "8px",
-                                marginBottom: "6px",
-                                borderRadius: "6px",
-                                backgroundColor: isSelected ? "#aeaeae" : "transparent",
-                                border: isSelected ? "1px solid #e9e9e9" : "1px solid transparent",
-                            }}
-                        >
-                            <strong>{account.type}</strong> — ${account.balance} ({account.status})
-                        </li>
-                    );
+                return (
+                    <div
+                    key={account.id}
+                    onClick={() => onSelectAccount(account.id)}
+                    className={`account-card ${
+                        isSelected ? "account-card-selected" : ""
+                    }`}
+                    >
+                    <div className="account-type">{account.type}</div>
 
+                    <div className="account-balance">
+                        ${account.balance.toLocaleString()}
+                    </div>
+
+                    <div className="account-status">{account.status}</div>
+                    </div>
+                );
                 })}
-            </ul>
+            </div>
         </div>
     );
 }
