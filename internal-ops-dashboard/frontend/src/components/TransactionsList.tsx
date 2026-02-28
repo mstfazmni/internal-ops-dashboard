@@ -1,5 +1,5 @@
 import { useAccountTransactions } from "../hooks/useAccountTransactions";
-import "./TransactionsList.css";
+import "../styles/TransactionsList.css";
 
 type Props = {
     accountId: string

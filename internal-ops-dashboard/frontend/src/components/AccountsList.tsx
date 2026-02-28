@@ -1,5 +1,5 @@
 import { useCustomerAccounts } from "../hooks/useCustomerAccounts";
-import "./AccountsList.css";
+import "../styles/AccountsList.css";
 
 type Props = {
     customerId: string;

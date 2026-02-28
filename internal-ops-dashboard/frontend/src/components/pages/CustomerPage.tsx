@@ -2,7 +2,7 @@ import { useState } from "react";
 import { CustomerSummary } from "../CustomerSummary";
 import { AccountsList } from "../AccountsList";
 import { TransactionsList } from "../TransactionsList";
-import './CustomerPage.css';
+import '../../styles/CustomerPage.css';
 
 export function CustomerPage() {
     const customerId = "2c9d2b91-0050-4d79-80cc-bca6d6475879";
