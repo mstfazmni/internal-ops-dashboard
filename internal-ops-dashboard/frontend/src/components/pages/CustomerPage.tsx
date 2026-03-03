@@ -2,6 +2,7 @@ import { useState } from "react";
 import { CustomerSummary } from "../CustomerSummary";
 import { AccountsList } from "../AccountsList";
 import { TransactionsList } from "../TransactionsList";
+import { FlagsList } from "../FlagsList";
 import '../../styles/CustomerPage.css';
 
 export function CustomerPage() {
@@ -21,6 +22,10 @@ export function CustomerPage() {
                     selectedAccountId={selectedAccountId}
                     onSelectAccount={setSelectedAccountId}
                 />
+                </div>
+
+                <div className="section-card">
+                    <FlagsList customerId={customerId} />
                 </div>
 
                 <div className="section-card">
